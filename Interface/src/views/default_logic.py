@@ -4,8 +4,8 @@ import math
 import random
 from collections import deque
 
-from PySide6.QtCore import QPainter, QPen, QTimer, Qt
-from PySide6.QtGui import QColor, QFont
+from PySide6.QtCore import QTimer, Qt
+from PySide6.QtGui import QColor, QFont, QPainter, QPen
 from PySide6.QtWidgets import QHBoxLayout, QWidget
 
 from forms.default_ui import Ui_Form

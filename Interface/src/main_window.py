@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import sys
 
-from PySide6.QtCore import QTimer, QUrl
+from PySide6.QtCore import QTimer, QUrl, Qt
 from PySide6.QtNetwork import QAbstractSocket, QTcpSocket
 from PySide6.QtWidgets import QApplication, QLabel, QMainWindow, QVBoxLayout, QWidget
 
@@ -37,28 +37,30 @@ class MainWindowLogic(QMainWindow):
     def _cargar_interfaces(self):
         """Carga las interfaces secundarias dentro del QStackedWidget."""
         self.filtro = self._crear_interfaz(
-            "src.views.filtros_logic",
+            "src.views.filtters_logic",
             "FiltrosLogic",
             self.ui.page_Filtt,
             "Interfaz de filtros no disponible",
         )
 
         self.impulse = self._crear_interfaz(
-            "src.views.edgeImpulse_logic",
+            "src.views.impulse_logic",
             "EdgeImpulseLogic",
             self.ui.page_Impulse,
             "Interfaz Edge Impulse no disponible",
         )
 
         self.esp32 = self._crear_interfaz(
-            "src.views.ESP32_logic",
+            "src.views.esp_logic",
             "ESP32Logic",
             self.ui.page_esp,
             "Interfaz ESP32 no disponible",
         )
 
-        self._mostrar_mensaje(
-            self.ui.pageSenal,
+        self.default = self._crear_interfaz(
+            "src.views.default_logic",
+            "DefaultLogic",
+            self.ui.page_Senal,
             "Interfaz de señal pendiente de implementar",
         )
 
@@ -78,6 +80,10 @@ class MainWindowLogic(QMainWindow):
             layout.setContentsMargins(0, 0, 0, 0)
             layout.addWidget(widget)
 
+            if hasattr(widget, "comando_solicitado"):
+                widget.comando_solicitado.connect(
+                    lambda comando: self._enviar_comando(comando)
+                )
             return widget
 
         except (ImportError, AttributeError, TypeError) as error:
@@ -102,6 +108,10 @@ class MainWindowLogic(QMainWindow):
 
         self.ui.btnESP32.clicked.connect(
             lambda: self.ui.pagWidget.setCurrentWidget(self.ui.page_esp)
+        )
+
+        self.ui.default_2.clicked.connect(
+            lambda: self.ui.pagWidget.setCurrentWidget(self.ui.page_Senal)
         )
 
         self.ui.pushButton_5.clicked.connect(self._alternar_conexion)
@@ -173,12 +183,3 @@ class MainWindowLogic(QMainWindow):
 
         event.accept()
 
-
-if __name__ == "__main__":
-    from PySide6.QtCore import Qt
-
-    app = QApplication(sys.argv)
-    window = MainWindowLogic()
-    window.show()
-    sys.exit(app.exec())
-    

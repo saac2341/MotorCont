@@ -21,7 +21,57 @@ from PySide6.QtWidgets import (QApplication, QFrame, QHBoxLayout, QHeaderView,
     QPushButton, QSizePolicy, QSpacerItem, QTableWidget,
     QTableWidgetItem, QVBoxLayout, QWidget)
 
-from kled import KLed
+
+class LedIndicator(QWidget):
+    """Indicador LED compatible con PySide6/Qt6."""
+
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self._color = QColor(0, 220, 80)
+        self.setMinimumSize(18, 18)
+        self.setMaximumSize(28, 28)
+
+    def setColor(self, color):
+        self._color = QColor(color)
+        self.update()
+
+    def setLook(self, _look):
+        # Compatibilidad con el antiguo KLed.
+        pass
+
+    def sizeHint(self):
+        return QSize(20, 20)
+
+    def paintEvent(self, event):
+        del event
+
+        painter = QPainter(self)
+        painter.setRenderHint(QPainter.RenderHint.Antialiasing)
+
+        margin = 2
+        led_rect = self.rect().adjusted(margin, margin, -margin, -margin)
+        center = led_rect.center()
+        radius = min(led_rect.width(), led_rect.height()) / 2
+
+        gradient = QRadialGradient(center, radius)
+        gradient.setColorAt(0.0, self._color.lighter(160))
+        gradient.setColorAt(0.65, self._color)
+        gradient.setColorAt(1.0, self._color.darker(170))
+
+        painter.setPen(Qt.PenStyle.NoPen)
+        painter.setBrush(gradient)
+        painter.drawEllipse(led_rect)
+
+
+class KLed(LedIndicator):
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self.setLook(KLed.Look.Flat)
+
+    def setColor(self, color):
+        self._color = QColor(color)
+        self.update()
+
 
 class Ui_Form(object):
     def setupUi(self, Form):
@@ -107,25 +157,28 @@ class Ui_Form(object):
         self.horizontalLayout_2.setSpacing(0)
         self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
         self.horizontalLayout_2.setContentsMargins(0, 0, 0, 0)
-        self.kled_ok = KLed(self.frame_4)
+        self.kled_ok = LedIndicator(self.frame_4)
         self.kled_ok.setObjectName(u"kled_ok")
-        self.kled_ok.setLook(KLed.Look.Flat)
+        self.kled_ok.setColor(QColor(51, 209, 122))
+        self.horizontalLayout_2.addWidget(
+            self.kled_ok, 0, Qt.AlignmentFlag.AlignHCenter
+)
 
-        self.horizontalLayout_2.addWidget(self.kled_ok, 0, Qt.AlignmentFlag.AlignHCenter)
-
-        self.kled_neutral = KLed(self.frame_4)
+        self.kled_neutral = LedIndicator(self.frame_4)
         self.kled_neutral.setObjectName(u"kled_neutral")
-        self.kled_neutral.setLook(KLed.Look.Flat)
         self.kled_neutral.setColor(QColor(248, 228, 92))
+        self.horizontalLayout_2.addWidget(
+            self.kled_neutral,
+            0,
+            Qt.AlignmentFlag.AlignHCenter | Qt.AlignmentFlag.AlignVCenter
+)
 
-        self.horizontalLayout_2.addWidget(self.kled_neutral, 0, Qt.AlignmentFlag.AlignHCenter|Qt.AlignmentFlag.AlignVCenter)
-
-        self.kled_process = KLed(self.frame_4)
+        self.kled_process = LedIndicator(self.frame_4)
         self.kled_process.setObjectName(u"kled_process")
-        self.kled_process.setLook(KLed.Look.Flat)
         self.kled_process.setColor(QColor(237, 51, 59))
-
-        self.horizontalLayout_2.addWidget(self.kled_process, 0, Qt.AlignmentFlag.AlignHCenter)
+        self.horizontalLayout_2.addWidget(
+            self.kled_process, 0, Qt.AlignmentFlag.AlignHCenter
+)
 
 
         self.verticalLayout.addWidget(self.frame_4)

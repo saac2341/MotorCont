@@ -1,6 +1,8 @@
 import sys 
 import subprocess
 
+### Progrma para actualizar las interfaces y recursos de PySide6.
+
 def optimize_ui():
     python_exe = sys.executable
     print ("Copilacion de interfaces y recursos de PySide6...")

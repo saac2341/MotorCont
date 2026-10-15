@@ -19,7 +19,9 @@ from PySide6.QtWidgets import (QApplication, QComboBox, QFrame, QHBoxLayout,
     QLabel, QLineEdit, QMainWindow, QPushButton,
     QSizePolicy, QSpacerItem, QStackedWidget, QVBoxLayout,
     QWidget)
-import forms.recurces_rc as recurces_rc
+
+import forms.recurces_rc as recurces_rc 
+
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -61,7 +63,7 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_2.addWidget(self.label)
 
-        self.verticalSpacer_2 = QSpacerItem(20, 100, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
+        self.verticalSpacer_2 = QSpacerItem(40, 150, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
 
         self.verticalLayout_2.addItem(self.verticalSpacer_2)
 
@@ -174,6 +176,39 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_2.addWidget(self.btnESP32)
 
+        self.verticalSpacer_5 = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.MinimumExpanding)
+
+        self.verticalLayout_2.addItem(self.verticalSpacer_5)
+
+        self.default_2 = QPushButton(self.opcionControl)
+        self.default_2.setObjectName(u"default_2")
+        self.default_2.setStyleSheet(u"/* Estado Normal */\n"
+"QPushButton {\n"
+"    background-color: rgba(191, 64, 64, 0);\n"
+"    color: #ffffff;\n"
+"    border: 1px solid rgb(255, 120, 0);\n"
+"    border-radius: 6px;\n"
+"    padding: 2px 12px;\n"
+"}\n"
+"\n"
+"/* Al pasar el cursor por encima (Hover) */\n"
+"QPushButton:hover {\n"
+"    background-color: #2563eb;\n"
+"}\n"
+"\n"
+"/* Al presionar/hacer click (Pressed) */\n"
+"QPushButton:pressed {\n"
+"    background-color: #1d4ed8;\n"
+"}\n"
+"\n"
+"/* Estado Deshabilitado (Disabled) */\n"
+"QPushButton:disabled {\n"
+"    background-color: #9ca3af;\n"
+"    color: #e5e7eb;\n"
+"}")
+
+        self.verticalLayout_2.addWidget(self.default_2)
+
         self.verticalSpacer = QSpacerItem(20, 239, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
 
         self.verticalLayout_2.addItem(self.verticalSpacer)
@@ -241,8 +276,8 @@ class Ui_MainWindow(object):
         font3.setFamilies([u"MesloLGLDZ Nerd Font Propo"])
         self.label_2.setFont(font3)
         self.label_2.setStyleSheet(u".QLabel{\n"
-"	\n"
 "	background-color: rgba(191, 64, 64, 0);\n"
+"	color: white;\n"
 "}")
 
         self.horizontalLayout_2.addWidget(self.label_2)
@@ -313,9 +348,9 @@ class Ui_MainWindow(object):
         font4.setFamilies([u"Candara"])
         font4.setBold(False)
         self.pagWidget.setFont(font4)
-        self.pageSenal = QWidget()
-        self.pageSenal.setObjectName(u"pageSenal")
-        self.pagWidget.addWidget(self.pageSenal)
+        self.page_Senal = QWidget()
+        self.page_Senal.setObjectName(u"page_Senal")
+        self.pagWidget.addWidget(self.page_Senal)
         self.page_Filtt = QWidget()
         self.page_Filtt.setObjectName(u"page_Filtt")
         self.pagWidget.addWidget(self.page_Filtt)
@@ -350,6 +385,7 @@ class Ui_MainWindow(object):
         self.btnFiltro.setText(QCoreApplication.translate("MainWindow", u"Filtros", None))
         self.btnImpulse.setText(QCoreApplication.translate("MainWindow", u"Impulse", None))
         self.btnESP32.setText(QCoreApplication.translate("MainWindow", u"ESP32", None))
+        self.default_2.setText(QCoreApplication.translate("MainWindow", u"Default", None))
         self.btnDesconec.setText(QCoreApplication.translate("MainWindow", u"Exit", None))
         self.label_2.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p align=\"center\"><span style=\" color:#ffffff;\">Conectar direcci\u00f3n IP</span></p></body></html>", None))
         self.lineEdit.setText("")
