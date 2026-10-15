@@ -1,0 +1,9 @@
+<RCC>
+  <qresource prefix="prefijoNuevo">
+    <file>icons8-brain-64.png</file>
+    <file>icons8-loop-24.png</file>
+    <file>tocar.png</file>
+    <file>icons8-lightning-arrow-32.png</file>
+    <file>icons8-usb-connector-48.png</file>
+  </qresource>
+</RCC>

@@ -1,0 +1,537 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Form</class>
+ <widget class="QWidget" name="Form">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1046</width>
+    <height>632</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QWidget{
+	background-color: rgb(40, 36, 76);
+}</string>
+  </property>
+  <layout class="QHBoxLayout" name="horizontalLayout">
+   <property name="spacing">
+    <number>2</number>
+   </property>
+   <property name="leftMargin">
+    <number>0</number>
+   </property>
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
+   <property name="bottomMargin">
+    <number>0</number>
+   </property>
+   <item>
+    <widget class="QFrame" name="frame_data">
+     <property name="maximumSize">
+      <size>
+       <width>480</width>
+       <height>16777215</height>
+      </size>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">border:none</string>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::Shape::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Shadow::Raised</enum>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_3">
+      <item>
+       <widget class="QLabel" name="label_2">
+        <property name="styleSheet">
+         <string notr="true">color: white;
+</string>
+        </property>
+        <property name="text">
+         <string>Agregar Token de conexión</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="line_Token">
+        <property name="styleSheet">
+         <string notr="true">color: rgb(36, 31, 49);
+background-color: rgb(246, 245, 244);
+border-radius: 10px;</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QListWidget" name="list_Archive">
+        <property name="styleSheet">
+         <string notr="true">.QListWidget{
+	background-color: rgb(25, 29, 63);
+	border-radius: 30px;
+	color: white;
+}</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QTableWidget" name="table_archive">
+        <property name="styleSheet">
+         <string notr="true">.QTableWidget{
+	background-color: rgb(25, 29, 63);
+	border-radius: 30px;
+	color: white;
+}</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QFrame" name="frame_opts">
+     <property name="maximumSize">
+      <size>
+       <width>125</width>
+       <height>16777215</height>
+      </size>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">border: none;
+</string>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::Shape::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Shadow::Raised</enum>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <property name="spacing">
+       <number>2</number>
+      </property>
+      <property name="leftMargin">
+       <number>2</number>
+      </property>
+      <property name="topMargin">
+       <number>2</number>
+      </property>
+      <property name="rightMargin">
+       <number>2</number>
+      </property>
+      <property name="bottomMargin">
+       <number>2</number>
+      </property>
+      <item>
+       <widget class="QLabel" name="label">
+        <property name="styleSheet">
+         <string notr="true">color: white;
+</string>
+        </property>
+        <property name="text">
+         <string>Edge Impulse</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QFrame" name="frame_4">
+        <property name="frameShape">
+         <enum>QFrame::Shape::StyledPanel</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Shadow::Raised</enum>
+        </property>
+        <layout class="QHBoxLayout" name="horizontalLayout_2">
+         <property name="spacing">
+          <number>0</number>
+         </property>
+         <property name="leftMargin">
+          <number>0</number>
+         </property>
+         <property name="topMargin">
+          <number>0</number>
+         </property>
+         <property name="rightMargin">
+          <number>0</number>
+         </property>
+         <property name="bottomMargin">
+          <number>0</number>
+         </property>
+         <item alignment="Qt::AlignmentFlag::AlignHCenter">
+          <widget class="KLed" name="kled_ok">
+           <property name="look">
+            <enum>KLed::Look::Flat</enum>
+           </property>
+          </widget>
+         </item>
+         <item alignment="Qt::AlignmentFlag::AlignHCenter|Qt::AlignmentFlag::AlignVCenter">
+          <widget class="KLed" name="kled_neutral">
+           <property name="look">
+            <enum>KLed::Look::Flat</enum>
+           </property>
+           <property name="color">
+            <color>
+             <red>248</red>
+             <green>228</green>
+             <blue>92</blue>
+            </color>
+           </property>
+          </widget>
+         </item>
+         <item alignment="Qt::AlignmentFlag::AlignHCenter">
+          <widget class="KLed" name="kled_process">
+           <property name="look">
+            <enum>KLed::Look::Flat</enum>
+           </property>
+           <property name="color">
+            <color>
+             <red>237</red>
+             <green>51</green>
+             <blue>59</blue>
+            </color>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item>
+       <spacer name="verticalSpacer_2">
+        <property name="orientation">
+         <enum>Qt::Orientation::Vertical</enum>
+        </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Policy::Fixed</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>150</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QPushButton" name="push_upinf">
+        <property name="styleSheet">
+         <string notr="true">/* Estado Normal */
+QPushButton {
+    background-color: rgba(191, 64, 64, 0);
+    color: #ffffff;
+    border: 1px solid rgb(255, 120, 0);
+    border-radius: 6px;
+    padding: 2px 12px;
+}
+
+/* Al pasar el cursor por encima (Hover) */
+QPushButton:hover {
+    background-color: #2563eb;
+}
+
+/* Al presionar/hacer click (Pressed) */
+QPushButton:pressed {
+    background-color: rgb(0, 255, 0);
+}
+
+/* Estado Deshabilitado (Disabled) */
+QPushButton:disabled {
+    background-color: #9ca3af;
+    color: #e5e7eb;
+}</string>
+        </property>
+        <property name="text">
+         <string>Subir Archivo</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="verticalSpacer_3">
+        <property name="orientation">
+         <enum>Qt::Orientation::Vertical</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>40</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QPushButton" name="push_reboot">
+        <property name="styleSheet">
+         <string notr="true">/* Estado Normal */
+QPushButton {
+    background-color: rgba(191, 64, 64, 0);
+    color: #ffffff;
+    border: 1px solid rgb(255, 120, 0);
+    border-radius: 6px;
+    padding: 2px 12px;
+}
+
+/* Al pasar el cursor por encima (Hover) */
+QPushButton:hover {
+    background-color: #2563eb;
+}
+
+/* Al presionar/hacer click (Pressed) */
+QPushButton:pressed {
+    background-color: rgb(0, 255, 0);
+}
+
+/* Estado Deshabilitado (Disabled) */
+QPushButton:disabled {
+    background-color: #9ca3af;
+    color: #e5e7eb;
+}</string>
+        </property>
+        <property name="text">
+         <string>Actualizar</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="verticalSpacer_4">
+        <property name="orientation">
+         <enum>Qt::Orientation::Vertical</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>40</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QPushButton" name="push_anals">
+        <property name="styleSheet">
+         <string notr="true">/* Estado Normal */
+QPushButton {
+    background-color: rgba(191, 64, 64, 0);
+    color: #ffffff;
+    border: 1px solid rgb(255, 120, 0);
+    border-radius: 6px;
+    padding: 2px 12px;
+}
+
+/* Al pasar el cursor por encima (Hover) */
+QPushButton:hover {
+    background-color: #2563eb;
+}
+
+/* Al presionar/hacer click (Pressed) */
+QPushButton:pressed {
+    background-color: rgb(0, 255, 0);
+}
+
+/* Estado Deshabilitado (Disabled) */
+QPushButton:disabled {
+    background-color: #9ca3af;
+    color: #e5e7eb;
+}</string>
+        </property>
+        <property name="text">
+         <string>Analizar</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="verticalSpacer_5">
+        <property name="orientation">
+         <enum>Qt::Orientation::Vertical</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>40</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QPushButton" name="push_connect">
+        <property name="styleSheet">
+         <string notr="true">/* Estado Normal */
+QPushButton {
+    background-color: rgba(191, 64, 64, 0);
+    color: #ffffff;
+    border: 1px solid rgb(255, 120, 0);
+    border-radius: 6px;
+    padding: 2px 12px;
+}
+
+/* Al pasar el cursor por encima (Hover) */
+QPushButton:hover {
+    background-color: #2563eb;
+}
+
+/* Al presionar/hacer click (Pressed) */
+QPushButton:pressed {
+    background-color: rgb(0, 255, 0);
+}
+
+/* Estado Deshabilitado (Disabled) */
+QPushButton:disabled {
+    background-color: #9ca3af;
+    color: #e5e7eb;
+}</string>
+        </property>
+        <property name="text">
+         <string>Conectar</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="verticalSpacer">
+        <property name="orientation">
+         <enum>Qt::Orientation::Vertical</enum>
+        </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Policy::Fixed</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>185</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QPushButton" name="push_cancel">
+        <property name="styleSheet">
+         <string notr="true">/* Estado Normal */
+QPushButton {
+    background-color: rgb(246, 97, 81);
+    color: #ffffff;
+    border: 1px solid rgb(255, 120, 0);
+    border-radius: 6px;
+    padding: 6px 18px;
+}
+
+/* Al pasar el cursor por encima (Hover) */
+QPushButton:hover {
+    background-color: #2563eb;
+}
+
+/* Al presionar/hacer click (Pressed) */
+QPushButton:pressed {
+    background-color: rgb(237, 51, 59);
+}
+
+/* Estado Deshabilitado (Disabled) */
+QPushButton:disabled {
+    background-color: #9ca3af;
+    color: #e5e7eb;
+}</string>
+        </property>
+        <property name="text">
+         <string>Cancelar</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QFrame" name="frame_edge">
+     <property name="styleSheet">
+      <string notr="true">border: none;</string>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::Shape::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Shadow::Raised</enum>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_2">
+      <item>
+       <widget class="QLabel" name="label_3">
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>20</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">color: white;</string>
+        </property>
+        <property name="text">
+         <string>Visualizar edge terminal</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QWebEngineView" name="webpageImpulse">
+        <property name="styleSheet">
+         <string notr="true">QWebEngineView {
+    border: 2px solid #374151;
+    border-radius: 10px;
+    background-color: #111827; /* Se muestra mientras carga la página */
+}</string>
+        </property>
+        <property name="url">
+         <url>
+          <string>about:blank</string>
+         </url>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_4">
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>20</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">color: white;
+</string>
+        </property>
+        <property name="text">
+         <string>Pagina Web</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QWidget" name="widget_Serial" native="true">
+        <property name="styleSheet">
+         <string notr="true">.QWidget{
+	background-color: rgb(25, 29, 63);
+	border-radius: 30px;
+	color: white;
+}</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>KLed</class>
+   <extends>QWidget</extends>
+   <header>kled.h</header>
+  </customwidget>
+  <customwidget>
+   <class>QWebEngineView</class>
+   <extends>QWidget</extends>
+   <header location="global">QtWebEngineWidgets/QWebEngineView</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>
