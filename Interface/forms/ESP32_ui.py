@@ -23,9 +23,69 @@ class Ui_Form(object):
         if not Form.objectName():
             Form.setObjectName(u"Form")
         Form.resize(965, 574)
-        Form.setStyleSheet(u"QWidget{\n"
-"	background-color: rgb(40, 36, 76);\n"
-"}")
+        Form.setStyleSheet(u"""
+            QWidget {
+                background-color: rgb(25, 29, 63);
+                color: white;
+                font-family: Bahnschrift;
+                font-size: 14px;
+            }
+
+            QLabel {
+                color: white;
+                background-color: transparent;
+                border: none;
+            }
+
+            QPushButton {
+                min-height: 30px;
+                padding: 6px 16px;
+                background-color: rgb(86, 82, 145);
+                color: white;
+                border: none;
+                border-radius: 10px;
+                font-weight: bold;
+            }
+
+            QPushButton:hover {
+                background-color: rgb(105, 100, 175);
+            }
+
+            QPushButton:pressed {
+                background-color: rgb(65, 61, 120);
+            }
+
+            QPushButton:disabled {
+                background-color: rgb(70, 68, 95);
+                color: rgb(160, 160, 160);
+            }
+
+            QCheckBox {
+                color: white;
+                spacing: 6px;
+            }
+
+            QLineEdit, QTextEdit, QPlainTextEdit {
+                background-color: rgb(246, 245, 244);
+                color: rgb(36, 31, 49);
+                border: none;
+                border-radius: 10px;
+                padding: 6px;
+            }
+
+            QFrame, QWidget#widget {
+                background-color: rgb(25, 29, 63);
+                border: none;
+                border-radius: 20px;
+            }
+
+            QLCDNumber {
+                color: white;
+                background-color: rgb(40, 36, 76);
+                border: none;
+                border-radius: 10px;
+            }
+        """)
         self.verticalLayout = QVBoxLayout(Form)
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.label = QLabel(Form)
@@ -43,12 +103,13 @@ class Ui_Form(object):
 
         self.widget = QWidget(Form)
         self.widget.setObjectName(u"widget")
-        self.widget.setStyleSheet(u".QWidget {\n"
-"    background-color: rgb(25, 29, 63);\n"
-"    border:none;\n"
-"	border-radius: 20px;\n"
-"}")
-
+        self.widget.setStyleSheet(u"""
+            QWidget#widget {
+                background-color: rgb(25, 29, 63);
+                border: none;
+                border-radius: 20px;
+            }
+        """)
         self.verticalLayout.addWidget(self.widget)
 
 

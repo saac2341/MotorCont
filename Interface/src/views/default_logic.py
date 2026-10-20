@@ -6,8 +6,11 @@ from collections import deque
 
 from PySide6.QtCore import QTimer, Qt
 from PySide6.QtGui import QColor, QFont, QPainter, QPen
-from PySide6.QtWidgets import QHBoxLayout, QWidget
+from PySide6.QtWidgets import QHBoxLayout, QVBoxLayout, QWidget
 
+from src.views.goniometro_widget import GoniometroWidget
+from src.views.DominanciaCerebralWidget import DominanciaCerebralWidget
+from src.views.graf_tiemp import GraficaTiempoWidget
 from forms.default_ui import Ui_Form
 
 
@@ -69,17 +72,17 @@ class DefaultLogic(QWidget):
         self.ui = Ui_Form()
         self.ui.setupUi(self)
 
-        self.graph = GraphWidget(self.ui.widget_graf)
-        graph_layout = QHBoxLayout(self.ui.widget_graf)
-        graph_layout.setContentsMargins(0, 0, 0, 0)
-        graph_layout.addWidget(self.graph)
+        self.grafica_tiempo = GraficaTiempoWidget(self.ui.widget_graf)
+        grafica_layout = QVBoxLayout(self.ui.widget_graf)
+        grafica_layout.setContentsMargins(0, 0, 0, 0)
+        grafica_layout.addWidget(self.grafica_tiempo)
 
-        self.goniometer = GraphWidget(self.ui.widget_Gono)
+        self.goniometer = GoniometroWidget(self.ui.widget_Gono)
         goniometer_layout = QHBoxLayout(self.ui.widget_Gono)
         goniometer_layout.setContentsMargins(0, 0, 0, 0)
         goniometer_layout.addWidget(self.goniometer)
 
-        self.brain_activity = GraphWidget(self.ui.widget_3)
+        self.brain_activity = DominanciaCerebralWidget(self.ui.widget_3)
         brain_layout = QHBoxLayout(self.ui.widget_3)
         brain_layout.setContentsMargins(0, 0, 0, 0)
         brain_layout.addWidget(self.brain_activity)
@@ -148,6 +151,7 @@ class DefaultLogic(QWidget):
         self.ui.label_act.setText(
             f"Actividad cerebral: {activity:.1f}%"
         )
+        self.brain_activity.set_niveles(activity / 100, activity / 100)
 
         self._refresh_graph()
 
@@ -157,13 +161,14 @@ class DefaultLogic(QWidget):
         if self.ui.checkBox.isChecked() and values:
             minimum = min(values)
             maximum = max(values)
+
             if minimum != maximum:
                 values = [
                     (value - minimum) / (maximum - minimum) * 100
                     for value in values
                 ]
 
-        self.graph.set_values(values)
+        self.grafica_tiempo.set_values(values)
         self.goniometer.set_values(self.angle_samples)
         self.brain_activity.set_values(self.activity_samples)
 
