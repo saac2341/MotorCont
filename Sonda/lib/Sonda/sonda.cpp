@@ -1,75 +1,63 @@
 #include "sonda.h"
-#include <pines.h>
-#include <Adafruit_ADS1X15.h>
 #include <Wire.h>
+#include <Adafruit_ADS1X15.h>
 
-static Adafruit_ADS1115 ads;
-
-static const float ALPHA = 0.15f; 
-static float filteredValue = 0.0f;
+// Objeto global para el ADS1115
+static Adafruit_ADS1X15 ads;
 
 bool inicializarMuestras() {
-  Wire.begin(PIN_ADS1115_SDA, PIN_ADS1115_SCL);
-  Wire.setClock(400000); // Modo I2C rápido (400 kHz)
+    // Configuración automática de pines I2C según la tarjeta compilada
+    #if defined(BOARD_XIAO_ESP32C6)
+        Wire.begin(6, 7); // Pines SDA y SCL para XIAO C6
+    #else
+        Wire.begin(21, 22); // Pines SDA y SCL estándar para ESP32 DevKit
+    #endif
 
-  if (!ads.begin(0x48, &Wire)) {
-    Serial.println("[ERROR] No se encontró el ADC ADS1115.");
-    return false;
-  }
+    Wire.setClock(400000); // Modo I2C rápido (400 kHz)
 
-  // GAIN_ONE: ±4.096V (ideal para módulos alimentados a 3.3V / 5V)
-  ads.setGain(GAIN_ONE);
-
-  // 250 SPS: Tasa óptima para equilibrio entre velocidad y bajo ruido
-  ads.setDataRate(RATE_ADS1115_250SPS);
-
-  filteredValue = 0.0f;
-  return true;
+    if (!ads.begin(0x48, &Wire)) {
+        Serial.println("[ERROR] No se encontró el ADC ADS1115.");
+        return false;
+    }
+    
+    ads.setGain(GAIN_ONE); // Rango de +/- 4.096V
+    return true;
 }
 
-void tomarMuestra(int muestra[], int cantidadMuestras, int tiempoEntreMuestras, bool imprimirInmediato) {
-  for (int i = 0; i < cantidadMuestras; i++) {
-    // 1. Lectura del canal A0 (salida del módulo GSR)
-    int16_t rawADC = ads.readADC_SingleEnded(0);
+// Función adaptada para capturar los canales individuales y la diferencia simultáneamente
+void tomarMuestrasCanales(int &valA, int &valB, int &valDiferencia) {
+    // Leemos el canal 0 de forma individual (Canal A)
+    int16_t canalA = ads.readADC_SingleEnded(0);
+    // Leemos el canal 1 de forma individual (Canal B)
+    int16_t canalB = ads.readADC_SingleEnded(1);
+    // Realizamos la lectura diferencial (o la resta matemática A - B)
+    int16_t diferencia = ads.readADC_Differential_0_1();
 
-    // 2. Filtro exponencial
-    if (filteredValue == 0.0f && rawADC > 0) {
-      filteredValue = static_cast<float>(rawADC);
-    } else {
-      filteredValue = (ALPHA * static_cast<float>(rawADC)) + ((1.0f - ALPHA) * filteredValue);
+    valA = (int)canalA;
+    valB = (int)canalB;
+    valDiferencia = (int)diferencia;
+}
+
+// Conservamos tu función original por si la usas en otra parte del proyecto
+void tomarMuestra(int muestra[], int cantidadMuestras, int tiempoEntreMuestras, bool imprimirMuestra) {
+    for (int i = 0; i < cantidadMuestras; i++) {
+        int16_t valor_adc = ads.readADC_Differential_0_1();
+        muestra[i] = (int)valor_adc;
+
+        if (imprimirMuestra) {
+            Serial.println(muestra[i]);
+        }
+
+        delay(tiempoEntreMuestras);
     }
-
-    // 3. Almacenar valor filtrado en el arreglo
-    muestra[i] = static_cast<int>(filteredValue);
-
-    // 4. Imprimir inmediatamente por el puerto serial para la GUI
-    if (imprimirInmediato) {
-      // Opcional: Si deseas enviar el valor en Voltios en lugar del RAW, usa:
-      // float voltios = ads.computeVolts(muestra[i]);
-      // Serial.println(voltios, 4);
-
-      Serial.println(muestra[i]); 
-    }
-
-    // 5. Retardo de muestreo
-    if (tiempoEntreMuestras > 0) {
-      delay(tiempoEntreMuestras);
-    }
-  }
 }
 
 void SerialMuestra(const int muestra[], int cantidadMuestras, bool formatoCSV) {
-  if (formatoCSV) {
     for (int i = 0; i < cantidadMuestras; i++) {
-      Serial.print(muestra[i]);
-      if (i < cantidadMuestras - 1) {
-        Serial.print(",");
-      }
+        Serial.print(muestra[i]);
+        if (formatoCSV && i < cantidadMuestras - 1) {
+            Serial.print(",");
+        }
     }
     Serial.println();
-  } else {
-    for (int i = 0; i < cantidadMuestras; i++) {
-      Serial.println(muestra[i]);
-    }
-  }
 }
