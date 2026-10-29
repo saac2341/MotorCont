@@ -1,0 +1,587 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Form</class>
+ <widget class="QWidget" name="Form">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>907</width>
+    <height>657</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QWidget{
+	background-color: rgb(40, 36, 76);
+}</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <property name="spacing">
+    <number>0</number>
+   </property>
+   <property name="leftMargin">
+    <number>0</number>
+   </property>
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
+   <property name="bottomMargin">
+    <number>0</number>
+   </property>
+   <item>
+    <widget class="QFrame" name="filtro_ops">
+     <property name="maximumSize">
+      <size>
+       <width>16777215</width>
+       <height>80</height>
+      </size>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::Shape::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Shadow::Raised</enum>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_5">
+      <property name="spacing">
+       <number>0</number>
+      </property>
+      <property name="leftMargin">
+       <number>0</number>
+      </property>
+      <property name="topMargin">
+       <number>0</number>
+      </property>
+      <property name="rightMargin">
+       <number>0</number>
+      </property>
+      <property name="bottomMargin">
+       <number>0</number>
+      </property>
+      <item>
+       <widget class="QFrame" name="frame_7">
+        <property name="frameShape">
+         <enum>QFrame::Shape::StyledPanel</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Shadow::Raised</enum>
+        </property>
+        <layout class="QHBoxLayout" name="horizontalLayout_2">
+         <item>
+          <widget class="QLabel" name="label">
+           <property name="font">
+            <font>
+             <family>Bahnschrift</family>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">color: white</string>
+           </property>
+           <property name="text">
+            <string>Editor de filtros de la muestra</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="horizontalSpacer">
+           <property name="orientation">
+            <enum>Qt::Orientation::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pushButton">
+           <property name="font">
+            <font>
+             <family>Bahnschrift</family>
+             <bold>false</bold>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">/* Estado Normal */
+QPushButton {
+    background-color: rgba(191, 64, 64, 0);
+    color: #ffffff;
+    border: 1px solid rgb(255, 120, 0);
+    border-radius: 6px;
+    padding: 2px 12px;
+}
+
+/* Al pasar el cursor por encima (Hover) */
+QPushButton:hover {
+    background-color: #2563eb;
+}
+
+/* Al presionar/hacer click (Pressed) */
+QPushButton:pressed {
+    background-color: rgb(0, 255, 0);
+}
+
+/* Estado Deshabilitado (Disabled) */
+QPushButton:disabled {
+    background-color: #9ca3af;
+    color: #e5e7eb;
+}</string>
+           </property>
+           <property name="text">
+            <string>Exportar CVS</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pushButton_2">
+           <property name="font">
+            <font>
+             <family>Bahnschrift</family>
+             <bold>false</bold>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">/* Estado Normal */
+QPushButton {
+    background-color: rgba(191, 64, 64, 0);
+    color: #ffffff;
+    border: 1px solid rgb(255, 120, 0);
+    border-radius: 6px;
+    padding: 2px 12px;
+}
+
+/* Al pasar el cursor por encima (Hover) */
+QPushButton:hover {
+    background-color: #2563eb;
+}
+
+/* Al presionar/hacer click (Pressed) */
+QPushButton:pressed {
+    background-color: rgb(0, 255, 0);
+}
+
+/* Estado Deshabilitado (Disabled) */
+QPushButton:disabled {
+    background-color: #9ca3af;
+    color: #e5e7eb;
+}</string>
+           </property>
+           <property name="text">
+            <string>Exportar JSON</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item>
+       <widget class="QFrame" name="frame_8">
+        <property name="frameShape">
+         <enum>QFrame::Shape::StyledPanel</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Shadow::Raised</enum>
+        </property>
+        <layout class="QHBoxLayout" name="horizontalLayout">
+         <property name="leftMargin">
+          <number>2</number>
+         </property>
+         <property name="topMargin">
+          <number>2</number>
+         </property>
+         <item>
+          <widget class="QRadioButton" name="radioButton">
+           <property name="font">
+            <font>
+             <family>Bahnschrift</family>
+             <pointsize>-1</pointsize>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">/* Estado base del texto y contenedor */
+QRadioButton {
+    color: #e5e7eb;
+    font-size: 14px;
+    spacing: 6px; /* Espacio entre el círculo y el texto */
+}
+
+/* Tamaño del indicador (el círculo) */
+QRadioButton::indicator {
+    width: 12px;
+    height: 12px;
+    border-radius: 7px; /* Mitad del ancho/alto + borde para que sea circular */
+    border: 2px solid #6b7280;
+    background-color: #1f2937;
+}
+
+/* Hover sobre el círculo cuando NO está seleccionado */
+QRadioButton::indicator:unchecked:hover {
+    border-color: #38bdf8;
+}
+
+/* Estado SELECCIONADO (Checked) */
+QRadioButton::indicator:checked {
+    border-color: #38bdf8;
+    background-color: #38bdf8;
+    /* En QSS puro creamos el punto central con una imagen o con márgenes/relleno */
+}</string>
+           </property>
+           <property name="text">
+            <string>Pasa bajas</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QRadioButton" name="radioButton_2">
+           <property name="font">
+            <font>
+             <family>Bahnschrift</family>
+             <pointsize>-1</pointsize>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">/* Estado base del texto y contenedor */
+QRadioButton {
+    color: #e5e7eb;
+    font-size: 14px;
+    spacing: 6px; /* Espacio entre el círculo y el texto */
+}
+
+/* Tamaño del indicador (el círculo) */
+QRadioButton::indicator {
+    width: 12px;
+    height: 12px;
+    border-radius: 7px; /* Mitad del ancho/alto + borde para que sea circular */
+    border: 2px solid #6b7280;
+    background-color: #1f2937;
+}
+
+/* Hover sobre el círculo cuando NO está seleccionado */
+QRadioButton::indicator:unchecked:hover {
+    border-color: #38bdf8;
+}
+
+/* Estado SELECCIONADO (Checked) */
+QRadioButton::indicator:checked {
+    border-color: #38bdf8;
+    background-color: #38bdf8;
+    /* En QSS puro creamos el punto central con una imagen o con márgenes/relleno */
+}</string>
+           </property>
+           <property name="text">
+            <string>Pasa Altas</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QRadioButton" name="radioButton_3">
+           <property name="font">
+            <font>
+             <family>Bahnschrift</family>
+             <pointsize>-1</pointsize>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">/* Estado base del texto y contenedor */
+QRadioButton {
+    color: #e5e7eb;
+    font-size: 14px;
+    spacing: 6px; /* Espacio entre el círculo y el texto */
+}
+
+/* Tamaño del indicador (el círculo) */
+QRadioButton::indicator {
+    width: 12px;
+    height: 12px;
+    border-radius: 7px; /* Mitad del ancho/alto + borde para que sea circular */
+    border: 2px solid #6b7280;
+    background-color: #1f2937;
+}
+
+/* Hover sobre el círculo cuando NO está seleccionado */
+QRadioButton::indicator:unchecked:hover {
+    border-color: #38bdf8;
+}
+
+/* Estado SELECCIONADO (Checked) */
+QRadioButton::indicator:checked {
+    border-color: #38bdf8;
+    background-color: #38bdf8;
+    /* En QSS puro creamos el punto central con una imagen o con márgenes/relleno */
+}</string>
+           </property>
+           <property name="text">
+            <string>Combinado</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="horizontalSpacer_2">
+           <property name="orientation">
+            <enum>Qt::Orientation::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>60</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QSpinBox" name="spinBox">
+           <property name="styleSheet">
+            <string notr="true">color: rgb(36, 31, 49);
+background-color: rgb(246, 245, 244);</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QTextEdit" name="textEdit">
+           <property name="styleSheet">
+            <string notr="true">color: rgb(36, 31, 49);
+background-color: rgb(246, 245, 244);</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QFrame" name="filtro_grafs">
+     <property name="frameShape">
+      <enum>QFrame::Shape::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Shadow::Raised</enum>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_2">
+      <property name="leftMargin">
+       <number>2</number>
+      </property>
+      <property name="topMargin">
+       <number>2</number>
+      </property>
+      <property name="rightMargin">
+       <number>2</number>
+      </property>
+      <property name="bottomMargin">
+       <number>2</number>
+      </property>
+      <item>
+       <widget class="QFrame" name="frame_4">
+        <property name="frameShape">
+         <enum>QFrame::Shape::StyledPanel</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Shadow::Raised</enum>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout_3">
+         <property name="spacing">
+          <number>2</number>
+         </property>
+         <property name="leftMargin">
+          <number>2</number>
+         </property>
+         <property name="topMargin">
+          <number>2</number>
+         </property>
+         <property name="rightMargin">
+          <number>2</number>
+         </property>
+         <property name="bottomMargin">
+          <number>2</number>
+         </property>
+         <item>
+          <widget class="QFrame" name="frame_5">
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>25</height>
+            </size>
+           </property>
+           <property name="frameShape">
+            <enum>QFrame::Shape::StyledPanel</enum>
+           </property>
+           <property name="frameShadow">
+            <enum>QFrame::Shadow::Raised</enum>
+           </property>
+           <layout class="QHBoxLayout" name="horizontalLayout_3">
+            <property name="spacing">
+             <number>0</number>
+            </property>
+            <property name="leftMargin">
+             <number>0</number>
+            </property>
+            <property name="topMargin">
+             <number>0</number>
+            </property>
+            <property name="rightMargin">
+             <number>0</number>
+            </property>
+            <property name="bottomMargin">
+             <number>0</number>
+            </property>
+            <item>
+             <widget class="QLabel" name="label_2">
+              <property name="font">
+               <font>
+                <family>Bahnschrift</family>
+               </font>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">color: white 
+</string>
+              </property>
+              <property name="text">
+               <string>Antes de los filtros</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="horizontalSpacer_4">
+              <property name="orientation">
+               <enum>Qt::Orientation::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>757</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item>
+          <widget class="QWidget" name="widget" native="true">
+           <property name="styleSheet">
+            <string notr="true">.QWidget{
+	background-color: rgb(25, 29, 63);
+	border-radius: 30px;
+}</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item>
+       <widget class="QFrame" name="frame_3">
+        <property name="frameShape">
+         <enum>QFrame::Shape::StyledPanel</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Shadow::Raised</enum>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout_4">
+         <property name="spacing">
+          <number>0</number>
+         </property>
+         <property name="leftMargin">
+          <number>0</number>
+         </property>
+         <property name="topMargin">
+          <number>0</number>
+         </property>
+         <property name="rightMargin">
+          <number>0</number>
+         </property>
+         <property name="bottomMargin">
+          <number>0</number>
+         </property>
+         <item>
+          <widget class="QFrame" name="frame_6">
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>25</height>
+            </size>
+           </property>
+           <property name="frameShape">
+            <enum>QFrame::Shape::StyledPanel</enum>
+           </property>
+           <property name="frameShadow">
+            <enum>QFrame::Shadow::Raised</enum>
+           </property>
+           <layout class="QHBoxLayout" name="horizontalLayout_4">
+            <property name="spacing">
+             <number>0</number>
+            </property>
+            <property name="leftMargin">
+             <number>0</number>
+            </property>
+            <property name="topMargin">
+             <number>0</number>
+            </property>
+            <property name="rightMargin">
+             <number>0</number>
+            </property>
+            <property name="bottomMargin">
+             <number>0</number>
+            </property>
+            <item>
+             <widget class="QLabel" name="label_3">
+              <property name="font">
+               <font>
+                <family>Bahnschrift</family>
+               </font>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">color: white;
+</string>
+              </property>
+              <property name="text">
+               <string>Despues de los filtros</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="horizontalSpacer_3">
+              <property name="orientation">
+               <enum>Qt::Orientation::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>740</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item>
+          <widget class="QWidget" name="widget_2" native="true">
+           <property name="styleSheet">
+            <string notr="true">.QWidget{
+	background-color: rgb(25, 29, 63);
+	border-radius: 30px;
+}</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
