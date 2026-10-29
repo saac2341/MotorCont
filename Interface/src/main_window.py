@@ -7,21 +7,24 @@ from PySide6.QtNetwork import QAbstractSocket, QTcpSocket
 from PySide6.QtWidgets import QApplication, QLabel, QMainWindow, QVBoxLayout, QWidget
 
 from forms.main_window_ui import Ui_MainWindow
-
+from src.network_conexion import NetworkConexion
 
 class MainWindowLogic(QMainWindow):
     """Controlador principal de la aplicación."""
-
+    datos_recibidos = Signal(str)  # Señal para transmitir datos recibidos a otras interfaces
+    estado_conexion = Signal(bool, str)  # Señal para transmitir el estado de la conexión a otras interfaces
+    
     def __init__(self):
         super().__init__()
 
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
-
         self.socket = QTcpSocket(self)
         self._configurar_interfaz()
         self._cargar_interfaces()
         self._conectar_eventos()
+        """Creacion de hilos para la conexion con la ESP32 y la recepcion de datos de la señal"""
+        self.NetworkConexion = QThread()
 
     def _configurar_interfaz(self):
         self.ui.comboBox.clear()
