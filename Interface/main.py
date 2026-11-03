@@ -1,14 +1,16 @@
+"""Punto de entrada de la aplicación MotorCont."""
+
 import sys
 
 from PySide6.QtWidgets import QApplication
 
-from src.main_window import MainWindowLogic
+from src.main_window_logic import MainWindow
 
 
-def main():
+def main() -> int:
     app = QApplication(sys.argv)
 
-    ventana = MainWindowLogic()
+    ventana = MainWindow()
     ventana.show()
 
     return app.exec()
@@ -16,3 +18,4 @@ def main():
 
 if __name__ == "__main__":
     sys.exit(main())
+    
