@@ -1,229 +1,121 @@
-from __future__ import annotations
+"""Vista de integración con Edge Impulse."""
 
-from pathlib import Path
-
-from PySide6.QtCore import QSettings, QUrl
+from PySide6.QtCore import QUrl
 from PySide6.QtWidgets import (
     QFileDialog,
     QMessageBox,
-    QTableWidgetItem,
+    QPlainTextEdit,
     QVBoxLayout,
-    QLabel,
-    QWidget,
 )
 
 from forms.edgeImpulse_ui import Ui_Form
+from src.views.base_view import BaseView
 
 
-class EdgeImpulseLogic(QWidget):
-    """Lógica de la interfaz Edge Impulse."""
+class ImpulseLogic(BaseView):
+    """Vista de Edge Impulse conectada al hub principal."""
 
-    def __init__(self, parent=None):
-        super().__init__(parent)
+    def __init__(self, contenedor, hub=None):
+        super().__init__(contenedor, hub=hub)
 
         self.ui = Ui_Form()
         self.ui.setupUi(self)
 
-        self.settings = QSettings("MotorCont", "Interface")
-        self.archivos: list[Path] = []
+        self._conectado = False
+        self._archivo_seleccionado = None
 
-        self._configurar_interfaz()
-        self._conectar_eventos()
-        self._cargar_datos_guardados()
-        self._establecer_estado("neutral")
+        self._crear_terminal()
+        self._configurar_eventos()
 
-    def _configurar_interfaz(self):
-        self.ui.line_Token.setEchoMode(
-            self.ui.line_Token.EchoMode.Password
-        )
-
-        self.ui.table_archive.setColumnCount(2)
-        self.ui.table_archive.setHorizontalHeaderLabels(
-            ["Archivo", "Ruta"]
-        )
-        self.ui.table_archive.horizontalHeader().setStretchLastSection(True)
-        self.ui.table_archive.setSelectionBehavior(
-            self.ui.table_archive.SelectionBehavior.SelectRows
-        )
-        self.ui.table_archive.setEditTriggers(
-            self.ui.table_archive.EditTrigger.NoEditTriggers
-        )
-
-        serial_layout = QVBoxLayout(self.ui.widget_Serial)
-        serial_layout.setContentsMargins(12, 8, 12, 8)
-
-        self.serial_status = QLabel("Puerto serial desconectado")
-        self.serial_status.setStyleSheet("color: white;")
-        serial_layout.addWidget(self.serial_status)
-
+        self.ui.push_upinf.setEnabled(False)
         self.ui.push_reboot.setEnabled(False)
         self.ui.push_anals.setEnabled(False)
-
-    def _conectar_eventos(self):
-        self.ui.push_connect.clicked.connect(self._conectar_edge_impulse)
-        self.ui.push_cancel.clicked.connect(self._cancelar)
-        self.ui.push_upinf.clicked.connect(self._seleccionar_archivo)
-        self.ui.push_reboot.clicked.connect(self._actualizar)
-        self.ui.push_anals.clicked.connect(self._analizar_archivo)
-        self.ui.list_Archive.currentRowChanged.connect(
-            self._seleccionar_archivo_lista
-        )
-
-    def _cargar_datos_guardados(self):
-        token = self.settings.value("edge_impulse/token", "", type=str)
-
-        if token:
-            self.ui.line_Token.setText(token)
-
-        archivos = self.settings.value("edge_impulse/archivos", [], type=list)
-
-        for archivo in archivos:
-            ruta = Path(archivo)
-            if ruta.exists():
-                self._agregar_archivo(ruta)
-
-    def _conectar_edge_impulse(self):
-        token = self.ui.line_Token.text().strip()
-
-        if not token:
-            self._mostrar_error("Debes ingresar un token de Edge Impulse.")
-            self._establecer_estado("error")
-            return
-
-        self.settings.setValue("edge_impulse/token", token)
-
-        self._establecer_estado("ok")
         self.ui.push_connect.setEnabled(False)
-        self.ui.push_reboot.setEnabled(True)
-        self.ui.push_anals.setEnabled(bool(self.archivos))
-        self.serial_status.setText("Token configurado correctamente")
+        self.ui.push_cancel.setEnabled(False)
 
-        # Página pública de Edge Impulse.
         self.ui.webpageImpulse.setUrl(
             QUrl("https://studio.edgeimpulse.com")
+        )
+
+    def _crear_terminal(self):
+        """Crea el visor de mensajes dentro del formulario diseñado."""
+        self.terminal = QPlainTextEdit(self.ui.widget_Serial)
+        self.terminal.setReadOnly(True)
+        self.terminal.setPlaceholderText(
+            "Esperando datos de Edge Impulse..."
+        )
+
+        layout = QVBoxLayout(self.ui.widget_Serial)
+        layout.setContentsMargins(8, 8, 8, 8)
+        layout.addWidget(self.terminal)
+
+    def _configurar_eventos(self):
+        self.ui.push_upinf.clicked.connect(self._seleccionar_archivo)
+        self.ui.push_reboot.clicked.connect(
+            lambda: self._enviar_comando("IMPULSE_REFRESH")
+        )
+        self.ui.push_anals.clicked.connect(
+            lambda: self._enviar_comando("IMPULSE_ANALYZE")
+        )
+        self.ui.push_connect.clicked.connect(
+            lambda: self._enviar_comando("IMPULSE_CONNECT")
+        )
+        self.ui.push_cancel.clicked.connect(
+            lambda: self._enviar_comando("IMPULSE_CANCEL")
+        )
+
+    def recibir_datos(self, datos: str):
+        """Muestra los datos recibidos desde el hub."""
+        self.terminal.appendPlainText(str(datos))
+
+    def set_conectado(self, ok: bool):
+        """Actualiza el estado de conexión de la vista."""
+        self._conectado = ok
+
+        botones = (
+            self.ui.push_upinf,
+            self.ui.push_reboot,
+            self.ui.push_anals,
+            self.ui.push_connect,
+            self.ui.push_cancel,
+        )
+
+        for boton in botones:
+            boton.setEnabled(ok)
+
+        self.ui.kled_ok.setVisible(ok)
+        self.ui.kled_neutral.setVisible(not ok)
+        self.ui.kled_process.setVisible(False)
+
+        self.ui.label.setText(
+            f"Edge Impulse - {'Conectado' if ok else 'Desconectado'}"
         )
 
     def _seleccionar_archivo(self):
         ruta, _ = QFileDialog.getOpenFileName(
             self,
-            "Seleccionar archivo",
-            str(Path.home()),
-            "Archivos de datos (*.csv *.json *.txt *.zip);;"
-            "Todos los archivos (*)",
+            "Seleccionar archivo para Edge Impulse",
+            "",
+            "Archivos de datos (*.csv *.json *.txt);;Todos (*.*)",
         )
 
-        if ruta:
-            self._agregar_archivo(Path(ruta))
-
-    def _agregar_archivo(self, ruta: Path):
-        if ruta in self.archivos:
+        if not ruta:
             return
 
-        self.archivos.append(ruta)
-
-        self.ui.list_Archive.addItem(ruta.name)
-
-        fila = self.ui.table_archive.rowCount()
-        self.ui.table_archive.insertRow(fila)
-        self.ui.table_archive.setItem(
-            fila, 0, QTableWidgetItem(ruta.name)
+        self._archivo_seleccionado = ruta
+        self.terminal.appendPlainText(
+            f"Archivo seleccionado: {ruta}"
         )
-        self.ui.table_archive.setItem(
-            fila, 1, QTableWidgetItem(str(ruta))
-        )
+        self._enviar_comando(f"IMPULSE_UPLOAD:{ruta}")
 
-        self.ui.push_anals.setEnabled(True)
-        self._guardar_archivos()
-
-    def _seleccionar_archivo_lista(self, fila: int):
-        if 0 <= fila < len(self.archivos):
-            self.ui.table_archive.selectRow(fila)
-
-    def _actualizar(self):
-        self.ui.list_Archive.clear()
-        self.ui.table_archive.setRowCount(0)
-
-        archivos_validos = [
-            ruta for ruta in self.archivos if ruta.exists()
-        ]
-
-        self.archivos.clear()
-
-        for ruta in archivos_validos:
-            self._agregar_archivo(ruta)
-
-        self.ui.webpageImpulse.reload()
-        self.serial_status.setText("Lista y página actualizadas")
-
-    def _analizar_archivo(self):
-        fila = self.ui.table_archive.currentRow()
-
-        if fila < 0 or fila >= len(self.archivos):
-            self._mostrar_error("Selecciona un archivo para analizar.")
+    def _enviar_comando(self, comando: str):
+        if not self._conectado:
+            QMessageBox.warning(
+                self,
+                "Sin conexión",
+                "La fuente de datos no está conectada.",
+            )
             return
 
-        archivo = self.archivos[fila]
-
-        self._establecer_estado("process")
-        self.serial_status.setText(
-            f"Archivo seleccionado para análisis: {archivo.name}"
-        )
-
-        QMessageBox.information(
-            self,
-            "Análisis",
-            f"El archivo está listo para ser analizado:\n\n{archivo}",
-        )
-
-        self._establecer_estado("ok")
-
-    def _cancelar(self):
-        self.ui.line_Token.clear()
-        self.ui.list_Archive.clear()
-        self.ui.table_archive.setRowCount(0)
-        self.ui.webpageImpulse.setUrl(QUrl("about:blank"))
-
-        self.archivos.clear()
-        self.settings.remove("edge_impulse/token")
-        self.settings.remove("edge_impulse/archivos")
-
-        self.ui.push_connect.setEnabled(True)
-        self.ui.push_reboot.setEnabled(False)
-        self.ui.push_anals.setEnabled(False)
-
-        self.serial_status.setText("Configuración cancelada")
-        self._establecer_estado("neutral")
-
-    def _guardar_archivos(self):
-        self.settings.setValue(
-            "edge_impulse/archivos",
-            [str(ruta) for ruta in self.archivos],
-        )
-
-    def _establecer_estado(self, estado: str):
-        leds = {
-            "ok": self.ui.kled_ok,
-            "neutral": self.ui.kled_neutral,
-            "process": self.ui.kled_process,
-        }
-
-        for nombre, led in leds.items():
-            try:
-                led.setState(nombre == estado)
-            except AttributeError:
-                led.setEnabled(nombre == estado)
-
-    def _mostrar_error(self, mensaje: str):
-        QMessageBox.warning(self, "Edge Impulse", mensaje)
-        self.serial_status.setText(mensaje)
-
-
-if __name__ == "__main__":
-    import sys
-    from PySide6.QtWidgets import QApplication
-
-    app = QApplication(sys.argv)
-    ventana = EdgeImpulseLogic()
-    ventana.resize(1046, 632)
-    ventana.show()
-    sys.exit(app.exec())
+        self.ui.kled_process.setVisible(True)
+        self.comando_solicitado.emit(comando)
