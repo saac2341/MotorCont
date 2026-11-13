@@ -33,17 +33,13 @@ class ImpulseLogic(BaseView):
         self.ui.push_connect.setEnabled(False)
         self.ui.push_cancel.setEnabled(False)
 
-        self.ui.webpageImpulse.setUrl(
-            QUrl("https://studio.edgeimpulse.com")
-        )
+        self.ui.webpageImpulse.setUrl(QUrl("https://studio.edgeimpulse.com"))
 
     def _crear_terminal(self):
         """Crea el visor de mensajes dentro del formulario diseñado."""
         self.terminal = QPlainTextEdit(self.ui.widget_Serial)
         self.terminal.setReadOnly(True)
-        self.terminal.setPlaceholderText(
-            "Esperando datos de Edge Impulse..."
-        )
+        self.terminal.setPlaceholderText("Esperando datos de Edge Impulse...")
 
         layout = QVBoxLayout(self.ui.widget_Serial)
         layout.setContentsMargins(8, 8, 8, 8)
@@ -87,9 +83,7 @@ class ImpulseLogic(BaseView):
         self.ui.kled_neutral.setVisible(not ok)
         self.ui.kled_process.setVisible(False)
 
-        self.ui.label.setText(
-            f"Edge Impulse - {'Conectado' if ok else 'Desconectado'}"
-        )
+        self.ui.label.setText(f"Edge Impulse - {'Conectado' if ok else 'Desconectado'}")
 
     def _seleccionar_archivo(self):
         ruta, _ = QFileDialog.getOpenFileName(
@@ -103,9 +97,7 @@ class ImpulseLogic(BaseView):
             return
 
         self._archivo_seleccionado = ruta
-        self.terminal.appendPlainText(
-            f"Archivo seleccionado: {ruta}"
-        )
+        self.terminal.appendPlainText(f"Archivo seleccionado: {ruta}")
         self._enviar_comando(f"IMPULSE_UPLOAD:{ruta}")
 
     def _enviar_comando(self, comando: str):

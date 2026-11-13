@@ -181,7 +181,7 @@ class Ui_MainWindow(object):
         self.verticalLayout_2.addItem(self.verticalSpacer_5)
 
         self.default_2 = QPushButton(self.opcionControl)
-        self.default_2.setObjectName(u"default_2")
+        self.default_2.setObjectName(u"default_ui")
         self.default_2.setStyleSheet(u"/* Estado Normal */\n"
 "QPushButton {\n"
 "    background-color: rgba(191, 64, 64, 0);\n"
